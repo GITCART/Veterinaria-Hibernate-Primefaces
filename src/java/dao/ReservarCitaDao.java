@@ -49,7 +49,7 @@ public class ReservarCitaDao implements IReservaCita {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             //consulta hacia la base de datos
-            String hql = "FROM Reservarcita as cat inner join fetch cat.tiporeserva inner join cat.personal  inner join fetch cat.cliente child  inner join fetch child.persona";
+            String hql = "FROM Reservarcita as cat inner join fetch cat.tiporeserva inner join fetch cat.personal  inner join fetch cat.cliente child  inner join fetch child.persona";
             Query query = session.createQuery(hql);
             //ejecuta la consulta y obtener la lista. array: castea
             lista = (ArrayList<Reservarcita>) query.list();

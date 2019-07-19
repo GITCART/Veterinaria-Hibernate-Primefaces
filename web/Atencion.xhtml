@@ -15,16 +15,19 @@
                     <p:growl id="msgs" showDetail="true" />
 
                     <p:panel id="basic" header="ATENCION DE CLIENTES">
-                        <h:panelGrid columns="2" cellpadding="10">
+                        <h:panelGrid columns="4" cellpadding="10">
                             <p:outputLabel value="Codigo:"/>
                             <p:inputText readonly="true" value="#{atencionBean.atencion.idAtencion=='0'?'':atencionBean.atencion.idAtencion}" required="true"/>
                             <p:outputLabel value="Fecha Atencion:"/>
                             <p:calendar value="#{atencionBean.atencion.fechaAtencion}"/>
-                             <p:outputLabel value="Diagnostico:"/>
-                             <p:inputText value="#{atencionBean.atencion.diagnostico}"/>
-                            
-                             <p:outputLabel value="Cliente:"/>
-                             <p:selectOneMenu value="#{atencionBean.idCliente}">
+                            <p:outputLabel value="Diagnostico:"/>
+                            <p:inputText value="#{atencionBean.atencion.diagnostico}"/>
+                            <p:outputLabel value="hora de atencion"/>
+                            <h:outputText value="#{atencionBean.atencion.horaAtencion}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                            <p:outputLabel value="Cliente:"/>
+                            <p:selectOneMenu value="#{atencionBean.codigoCliente}">
                                 <f:selectItem itemLabel="--seleccione--"/>
                                 <f:selectItems value="#{atencionBean.listaCliente}" var="cliente" itemLabel="#{cliente.persona.nombre}" itemValue="#{cliente.codigoCliente}"/>
                             </p:selectOneMenu>
@@ -34,13 +37,13 @@
                                 <f:selectItem itemLabel="--seleccione--"/>
                                 <f:selectItems value="#{atencionBean.listaMascota}" var="mascota" itemLabel="#{mascota.nombreMascota}" itemValue="#{mascota.idMascota}"/>
                             </p:selectOneMenu>
-                             <p:outputLabel value="Personal de Atencion"/>
-                             <p:selectOneMenu value="#{atencionBean.idPersonal}">
+                            <p:outputLabel value="Personal de Atencion"/>
+                            <p:selectOneMenu value="#{atencionBean.idPersonal}">
                                 <f:selectItem itemLabel="--seleccione--"/>
                                 <f:selectItems value="#{atencionBean.listaPersonal}" var="per" itemLabel="#{per.dni}" itemValue="#{per.idpersonal}"/>
                             </p:selectOneMenu>
-                                <p:outputLabel value="Tipo de Atencion"/>
-                                <p:selectOneMenu value="#{atencionBean.idTipoAtencion}">
+                            <p:outputLabel value="Tipo de Atencion"/>
+                            <p:selectOneMenu value="#{atencionBean.idTipoAtencion}">
                                 <f:selectItem itemLabel="--seleccione--"/>
                                 <f:selectItems value="#{atencionBean.listaTipoAtencion}" var="ta" itemLabel="#{ta.descripcion}" itemValue="#{ta.idtipoatencion}"/>
                             </p:selectOneMenu>

@@ -32,7 +32,8 @@ import org.hibernate.HibernateException;
 
 /**
  *
- * @author Computer
+ * @author Computer reserva - cita atencion - no funciona registrar mascota -
+ * cliente
  */
 @ManagedBean
 //@RequestScoped
@@ -44,7 +45,7 @@ public class AtencionBean implements Serializable {
     private ArrayList listaPersonal;
     private ArrayList listaTipoAtencion;
     private int idMascota;
-    private int idCliente;
+    private int codigoCliente;
     private int idPersonal;
     private int idTipoAtencion;
     private Mascota mascota;
@@ -72,6 +73,8 @@ public class AtencionBean implements Serializable {
         personal = new Personal();
         tipoatencion = new Tipoatencion();
         persona = new Persona();
+        mascotaporcliente= new Mascotaporcliente();
+        mascotaporclienteId= new MascotaporclienteId();
         combosSeleccion();
     }
 
@@ -88,36 +91,22 @@ public class AtencionBean implements Serializable {
 
     public String guardarAtencion() {
         try {
-            if (idMascota != 0 && idCliente != 0 && idPersonal != 0 && idTipoAtencion != 0) {
-                AtencionDao atencionDao = new AtencionDao();
-                mascotaporclienteId.setIdMascota(idMascota);
-                mascotaporclienteId.setCodigoCliente(idCliente);
-                mascotaporcliente.setId(mascotaporclienteId);
-                System.out.println("id de dos:: mas y clien::" + idMascota + "++" + idMascota);
-                System.out.println("setID" + mascotaporclienteId);
-                personal.setIdpersonal(idPersonal);
-                tipoatencion.setIdtipoatencion(idTipoAtencion);
-
-                atencion.setMascotaporcliente(mascotaporcliente);
-                atencion.setPersonal(personal);
-                atencion.setTipoatencion(tipoatencion);
-                try {
-                    DateFormat hora = new SimpleDateFormat("HH:mm:ss");
-                    String stringHora = hora.format(date);
-                    Date convertido = hora.parse(stringHora);
-                    System.out.println(convertido);
-                    atencion.setHoraAtencion(convertido);
-                } catch (ParseException e) {
-                    System.out.println("Error: " + e.getMessage());
-                }
-                boolean respuesta = atencionDao.guardarAtencion(atencion);
-                if (respuesta) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se regidtro correctamente"));
-                } else {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo registrar"));
-                }
+            AtencionDao atencionDao = new AtencionDao();
+            mascotaporclienteId.setIdMascota(idMascota);
+            mascotaporclienteId.setCodigoCliente(codigoCliente);
+            mascotaporcliente.setId(mascotaporclienteId);
+            personal.setIdpersonal(idPersonal);
+            tipoatencion.setIdtipoatencion(idTipoAtencion);
+            atencion.setMascotaporcliente(mascotaporcliente);
+            atencion.setPersonal(personal);
+            atencion.setTipoatencion(tipoatencion);
+            Date hora= atencion.getHoraAtencion();
+            System.out.println("horasss::"+hora);
+            boolean respuesta = atencionDao.guardarAtencion(atencion);
+            if (respuesta) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se regidtro correctamente"));
             } else {
-                System.out.println("gravisisimo error");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo registrar"));
             }
 
         } catch (HibernateException e) {
@@ -210,14 +199,6 @@ public class AtencionBean implements Serializable {
         this.idMascota = idMascota;
     }
 
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
-    }
-
     public int getIdPersonal() {
         return idPersonal;
     }
@@ -297,5 +278,14 @@ public class AtencionBean implements Serializable {
     public void setMascotaporcliente(Mascotaporcliente mascotaporcliente) {
         this.mascotaporcliente = mascotaporcliente;
     }
+
+    public int getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+    
 
 }
