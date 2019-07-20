@@ -100,8 +100,10 @@ public class AtencionBean implements Serializable {
             atencion.setMascotaporcliente(mascotaporcliente);
             atencion.setPersonal(personal);
             atencion.setTipoatencion(tipoatencion);
-            Date hora= atencion.getHoraAtencion();
-            System.out.println("horasss::"+hora);
+            DateFormat horaformat = new SimpleDateFormat("HH:mm:ss");
+            String horaactual= horaformat.format(date);
+            Date horaActual= horaformat.parse(horaactual);
+            atencion.setHoraAtencion(horaActual);
             boolean respuesta = atencionDao.guardarAtencion(atencion);
             if (respuesta) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Se regidtro correctamente"));
@@ -109,7 +111,7 @@ public class AtencionBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("No se puedo registrar"));
             }
 
-        } catch (HibernateException e) {
+        } catch (ParseException e) {
             ///transation.rollback();  -- regresa a la anterior
             System.out.println("Error::: " + e);
         }

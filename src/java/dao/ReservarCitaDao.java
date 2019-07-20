@@ -16,7 +16,7 @@ import utilitarios.HibernateUtil;
 
 /**
  *
- * @author Computer
+ * @author Computer - dao
  */
 public class ReservarCitaDao implements IReservaCita {
 
